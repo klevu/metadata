@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Klevu\Metadata\Api\Data\ProductPriceDataInterface" type="Klevu\Metadata\Model\ProductPriceData"/>
+    <preference for="Klevu\Metadata\Api\CategoryMetadataProviderInterface" type="Klevu\Metadata\Provider\CategoryMetadataProvider"/>
+    <preference for="Klevu\Metadata\Api\CheckoutMetadataProviderInterface" type="Klevu\Metadata\Provider\CheckoutMetadataProvider"/>
+    <preference for="Klevu\Metadata\Api\ProductMetadataProviderInterface" type="Klevu\Metadata\Provider\ProductMetadataProvider"/>
+    <preference for="Klevu\Metadata\Api\ProductPriceDataProviderInterface" type="Klevu\Metadata\Provider\ProductPriceDataProvider"/>
+
+    <!-- Metadata Providers -->
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Simple" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Grouped" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Bundle" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Virtual" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Downloadable" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Giftcard" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
+
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Configurable\WithoutFirstChild" type="Klevu\Metadata\Provider\ProductMetadataProvider\Configurable">
+        <arguments>
+            <argument name="useFirstChildProductId" xsi:type="boolean">false</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Klevu\Metadata\Provider\ProductMetadataProvider">
+        <arguments>
+            <argument name="productTypeMetadataProviders" xsi:type="array">
+                <item name="simple" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Simple</item>
+                <item name="configurable" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Configurable</item>
+                <item name="grouped" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Grouped</item>
+                <item name="bundle" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Bundle</item>
+                <item name="virtual" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Virtual</item>
+                <item name="downloadable" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Downloadable</item>
+                <item name="giftcard" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Giftcard</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\ForCategory" type="Klevu\Metadata\Provider\ProductMetadataProvider">
+        <arguments>
+            <argument name="productTypeMetadataProviders" xsi:type="array">
+                <item name="configurable" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\Configurable\WithoutFirstChild</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Klevu\Metadata\Provider\CategoryMetadataProvider">
+        <arguments>
+            <argument name="productMetadataProvider" xsi:type="object">Klevu\Metadata\Provider\ProductMetadataProvider\ForCategory</argument>
+        </arguments>
+    </type>
+
+    <!-- Price Data Providers -->
+    <virtualType name="Klevu\Metadata\Provider\ProductPriceDataProvider\Simple" type="Klevu\Metadata\Provider\ProductPriceDataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductPriceDataProvider\Grouped" type="Klevu\Metadata\Provider\ProductPriceDataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductPriceDataProvider\Bundle" type="Klevu\Metadata\Provider\ProductPriceDataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductPriceDataProvider\Virtual" type="Klevu\Metadata\Provider\ProductPriceDataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductPriceDataProvider\Downloadable" type="Klevu\Metadata\Provider\ProductPriceDataProvider\Base"/>
+    <virtualType name="Klevu\Metadata\Provider\ProductPriceDataProvider\Giftcard" type="Klevu\Metadata\Provider\ProductPriceDataProvider\Base"/>
+
+    <type name="Klevu\Metadata\Provider\ProductPriceDataProvider">
+        <arguments>
+            <argument name="productTypePriceDataProviders" xsi:type="array">
+                <item name="simple" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Simple</item>
+                <item name="configurable" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Configurable</item>
+                <item name="grouped" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Grouped</item>
+                <item name="bundle" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Bundle</item>
+                <item name="virtual" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Virtual</item>
+                <item name="downloadable" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Downloadable</item>
+                <item name="giftcard" xsi:type="object">Klevu\Metadata\Provider\ProductPriceDataProvider\Giftcard</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Blocks -->
+    <type name="Klevu\Metadata\Block\Category">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Klevu\Metadata\Serializer\Json</argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Metadata\Block\Checkout">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Klevu\Metadata\Serializer\Json</argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Metadata\Block\Product">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Klevu\Metadata\Serializer\Json</argument>
+        </arguments>
+    </type>
+</config>

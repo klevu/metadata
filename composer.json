@@ -1,0 +1,35 @@
+{
+    "name": "klevu/module-metadata",
+    "description": "Klevu Metadata",
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0|~7.2.0|~7.3.0|~7.4.0",
+        "magento/framework": "@stable",
+        "magento/module-catalog": "@stable",
+        "magento/module-checkout": "@stable",
+        "magento/module-config": "@stable",
+        "magento/module-store": "@stable",
+        "psr/log": "@stable",
+        "klevu/module-registry": "^1.0.0"
+    },
+    "type": "magento-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Klevu Oy",
+            "email": "niraj.aswani@klevu.com",
+            "homepage": "https://www.klevu.com/"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Klevu\\Metadata\\": ""
+        }
+    }
+}

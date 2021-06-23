@@ -1,0 +1,10 @@
+<?php
+    /** @var Klevu\Metadata\Block\MetadataInterface $block */
+    $klevuPageMeta = $block->getKlevuPageMeta();
+?>
+<?php if ($klevuPageMeta): ?>
+    <!--suppress ES6ConvertVarToLetConst -->
+    <script type="text/javascript" id="klevu_page_meta">
+        var klevu_page_meta = <?php /** @noEscape */ echo $klevuPageMeta; ?>;
+    </script>
+<?php endif; ?>

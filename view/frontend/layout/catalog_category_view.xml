@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Klevu\Metadata\Block\Category"
+                   name="klevu_metadata_category"
+                   template="Klevu_Metadata::metadata.phtml">
+                <arguments>
+                    <argument name="list_products_block_name" xsi:type="string"><![CDATA[category.products.list]]></argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
