@@ -7,6 +7,7 @@ use Klevu\Metadata\Api\ProductPriceDataProviderInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\ConfigurableProduct\Api\LinkManagementInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Klevu\Metadata\Constants;
 
 class Configurable implements ProductMetadataProviderInterface
 {
@@ -30,6 +31,8 @@ class Configurable implements ProductMetadataProviderInterface
      * @param ProductPriceDataProviderInterface $productPriceDataProvider
      * @param LinkManagementInterface $linkManagementService
      * @param bool|null $useFirstChildProductId
+     *
+     * @note Keeping productPriceDataProvider argument intentionally
      */
     public function __construct(
         ProductPriceDataProviderInterface $productPriceDataProvider,
@@ -50,10 +53,12 @@ class Configurable implements ProductMetadataProviderInterface
      */
     public function getMetadataForProduct(ProductInterface $product)
     {
-        $productPriceData = $this->productPriceDataProvider->getPriceDataForProduct($product);
-        $itemSalePrice = $productPriceData->getPrice();
+        // @TODO: should be uncommented when KS-6048 is addressed
+        //$productPriceData = $this->productPriceDataProvider->getPriceDataForProduct($product);
+        //$itemSalePrice = $productPriceData->getPrice();
 
         return [
+            'platform' => Constants::KLEVU_PLATFORM_TYPE,
             'pageType' => static::PAGE_TYPE,
             'itemName' => $product->getName(),
             'itemUrl' => method_exists($product, 'getProductUrl')
@@ -61,10 +66,10 @@ class Configurable implements ProductMetadataProviderInterface
                 : '',
             'itemId' => $this->getFirstChildProductId($product),
             'itemGroupId' => (string)$product->getId(),
-            'itemSalePrice' => (null !== $itemSalePrice)
+            /*'itemSalePrice' => (null !== $itemSalePrice)
                 ? number_format($itemSalePrice, 2)
                 : '',
-            'itemCurrency' => $productPriceData->getCurrencyCode(),
+            'itemCurrency' => $productPriceData->getCurrencyCode(),*/
         ];
     }
 
