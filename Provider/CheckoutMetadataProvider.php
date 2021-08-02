@@ -10,6 +10,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Api\Data\CartItemInterface;
 use Psr\Log\LoggerInterface;
+use Klevu\Metadata\Constants;
 
 class CheckoutMetadataProvider implements CheckoutMetadataProviderInterface
 {
@@ -48,6 +49,7 @@ class CheckoutMetadataProvider implements CheckoutMetadataProviderInterface
             : [];
 
         return [
+            'platform' => Constants::KLEVU_PLATFORM_TYPE,
             'pageType' => static::PAGE_TYPE,
             'cartRecords' => array_filter(array_map([$this, 'getMetadataForCartItem'], $cartItems)),
         ];

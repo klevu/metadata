@@ -80,6 +80,7 @@ class CategoryMetadataProviderTest extends TestCase
         }
 
         $expectedArrayKeys = [
+            'platform',
             'pageType',
             'categoryName',
             'categoryUrl',
@@ -89,7 +90,7 @@ class CategoryMetadataProviderTest extends TestCase
         foreach ($expectedArrayKeys as $expectedArrayKey) {
             $this->assertArrayHasKey($expectedArrayKey, $actualResult);
         }
-
+        $this->assertSame('magento2', $actualResult['platform']);
         $this->assertSame('category', $actualResult['pageType']);
         $this->assertSame(
             '[Klevu] Parent Category 1;[Klevu] Child Category 1-1',

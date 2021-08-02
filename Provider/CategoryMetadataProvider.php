@@ -10,6 +10,7 @@ use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Klevu\Metadata\Constants;
 
 class CategoryMetadataProvider implements CategoryMetadataProviderInterface
 {
@@ -39,6 +40,7 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
         ProductCollection $productCollectionOverride = null
     ) {
         return [
+            'platform' => Constants::KLEVU_PLATFORM_TYPE,
             'pageType' => static::PAGE_TYPE,
             'categoryName' => implode(';', $this->getCategoryNamesHierarchy($category)),
             'categoryUrl' => $category->getUrl(),

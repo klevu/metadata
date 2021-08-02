@@ -57,6 +57,7 @@ class CheckoutMetadataProviderTest extends TestCase
         }
 
         $expectedArrayKeys = [
+            'platform',
             'pageType',
             'cartRecords',
         ];
@@ -64,7 +65,7 @@ class CheckoutMetadataProviderTest extends TestCase
         foreach ($expectedArrayKeys as $expectedArrayKey) {
             $this->assertArrayHasKey($expectedArrayKey, $actualResult);
         }
-
+        $this->assertSame('magento2', $actualResult['platform']);
         $this->assertSame('cart', $actualResult['pageType']);
 
         if (method_exists($this, 'assertIsArray')) {

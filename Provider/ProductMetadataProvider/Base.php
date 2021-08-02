@@ -6,6 +6,7 @@ use Klevu\Metadata\Api\ProductMetadataProviderInterface;
 use Klevu\Metadata\Api\ProductPriceDataProviderInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Klevu\Metadata\Constants;
 
 class Base implements ProductMetadataProviderInterface
 {
@@ -17,6 +18,8 @@ class Base implements ProductMetadataProviderInterface
     /**
      * Simple constructor.
      * @param ProductPriceDataProviderInterface $productPriceDataProvider
+     *
+     * @note Keeping constructor intentionally
      */
     public function __construct(
         ProductPriceDataProviderInterface $productPriceDataProvider
@@ -31,10 +34,12 @@ class Base implements ProductMetadataProviderInterface
      */
     public function getMetadataForProduct(ProductInterface $product)
     {
-        $productPriceData = $this->productPriceDataProvider->getPriceDataForProduct($product);
-        $itemSalePrice = $productPriceData->getPrice();
+        // @TODO: should be uncommented when KS-6048 is addressed
+        //$productPriceData = $this->productPriceDataProvider->getPriceDataForProduct($product);
+        //$itemSalePrice = $productPriceData->getPrice();
 
         return [
+            'platform' => Constants::KLEVU_PLATFORM_TYPE,
             'pageType' => static::PAGE_TYPE,
             'itemName' => $product->getName(),
             'itemUrl' => method_exists($product, 'getProductUrl')
@@ -42,10 +47,10 @@ class Base implements ProductMetadataProviderInterface
                 : '',
             'itemId' => (string)$product->getId(),
             'itemGroupId' => '',
-            'itemSalePrice' => (null !== $itemSalePrice)
+            /*'itemSalePrice' => (null !== $itemSalePrice)
                 ? number_format($itemSalePrice, 2)
                 : '',
-            'itemCurrency' => $productPriceData->getCurrencyCode(),
+            'itemCurrency' => $productPriceData->getCurrencyCode(),*/
         ];
     }
 }

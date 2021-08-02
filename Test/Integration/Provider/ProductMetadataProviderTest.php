@@ -70,26 +70,28 @@ class ProductMetadataProviderTest extends TestCase
         }
 
         $expectedArrayKeys = [
+            'platform',
             'pageType',
             'itemName',
             'itemUrl',
             'itemId',
             'itemGroupId',
-            'itemSalePrice',
-            'itemCurrency',
+            //'itemSalePrice',
+            //'itemCurrency',
         ];
         $this->assertSameSize($expectedArrayKeys, $actualResult);
         foreach ($expectedArrayKeys as $expectedArrayKey) {
             $this->assertArrayHasKey($expectedArrayKey, $actualResult);
         }
 
+        $this->assertSame('magento2', $actualResult['platform']);
         $this->assertSame('pdp', $actualResult['pageType'], 'pageType');
         $this->assertSame('[Klevu] Simple Product 1', $actualResult['itemName'], 'itemName');
         $this->assertSame($this->prepareUrl('klevu-simple-product-1'), $actualResult['itemUrl'], 'itemUrl');
         $this->assertSame((string)$simpleProduct->getId(), $actualResult['itemId'], 'itemId');
         $this->assertSame('', $actualResult['itemGroupId'], 'itemGroupId');
-        $this->assertSame('10.00', $actualResult['itemSalePrice'], 'itemSalePrice');
-        $this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
+        //$this->assertSame('10.00', $actualResult['itemSalePrice'], 'itemSalePrice');
+        //$this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
     }
 
     /**
@@ -116,26 +118,28 @@ class ProductMetadataProviderTest extends TestCase
         }
 
         $expectedArrayKeys = [
+            'platform',
             'pageType',
             'itemName',
             'itemUrl',
             'itemId',
             'itemGroupId',
-            'itemSalePrice',
-            'itemCurrency',
+            //'itemSalePrice',
+            //'itemCurrency',
         ];
         $this->assertSameSize($expectedArrayKeys, $actualResult);
         foreach ($expectedArrayKeys as $expectedArrayKey) {
             $this->assertArrayHasKey($expectedArrayKey, $actualResult);
         }
 
+        $this->assertSame('magento2', $actualResult['platform']);
         $this->assertSame('pdp', $actualResult['pageType'], 'pageType');
         $this->assertSame('[Klevu] Configurable Product 1', $actualResult['itemName'], 'itemName');
         $this->assertSame($this->prepareUrl('klevu-configurable-product-1'), $actualResult['itemUrl'], 'itemUrl');
         $this->assertSame('', $actualResult['itemId'], 'itemId');
         $this->assertSame((string)$configurableProduct->getId(), $actualResult['itemGroupId'], 'itemGroupId');
-        $this->assertSame('', $actualResult['itemSalePrice'], 'itemSalePrice');
-        $this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
+        //$this->assertSame('', $actualResult['itemSalePrice'], 'itemSalePrice');
+        //$this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
     }
 
     /**
@@ -163,26 +167,28 @@ class ProductMetadataProviderTest extends TestCase
         }
 
         $expectedArrayKeys = [
+            'platform',
             'pageType',
             'itemName',
             'itemUrl',
             'itemId',
             'itemGroupId',
-            'itemSalePrice',
-            'itemCurrency',
+            //'itemSalePrice',
+            //'itemCurrency',
         ];
         $this->assertSameSize($expectedArrayKeys, $actualResult);
         foreach ($expectedArrayKeys as $expectedArrayKey) {
             $this->assertArrayHasKey($expectedArrayKey, $actualResult);
         }
 
+        $this->assertSame('magento2', $actualResult['platform'], 'platform');
         $this->assertSame('pdp', $actualResult['pageType'], 'pageType');
         $this->assertSame('[Klevu] Configurable Product 7', $actualResult['itemName'], 'itemName');
         $this->assertSame($this->prepareUrl('klevu-configurable-product-7'), $actualResult['itemUrl'], 'itemUrl');
         $this->assertSame((string)$expectedSimpleProduct->getId(), $actualResult['itemId'], 'itemId');
         $this->assertSame((string)$configurableProduct->getId(), $actualResult['itemGroupId'], 'itemGroupId');
-        $this->assertSame('99.99', $actualResult['itemSalePrice'], 'itemSalePrice');
-        $this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
+        //$this->assertSame('99.99', $actualResult['itemSalePrice'], 'itemSalePrice');
+        //$this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
     }
 
     /**
