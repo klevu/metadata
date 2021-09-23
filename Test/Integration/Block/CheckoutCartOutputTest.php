@@ -48,10 +48,20 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
 
         $response = $this->getResponse();
         $responseBody = $response->getBody();
-        $this->assertStringContainsString('[Klevu] Simple Product 1', $responseBody);
-        $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
-        $this->assertMatchesRegularExpression('#klevu_page_meta\s*=#', $responseBody);
-        $this->assertMatchesRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        if (method_exists($this, 'assertStringContainsString')) {
+            $this->assertStringContainsString('[Klevu] Simple Product 1', $responseBody);
+            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        } else {
+            $this->assertContains('[Klevu] Simple Product 1', $responseBody);
+            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        }
+        if (method_exists($this, 'assertMatchesRegularExpression')) {
+            $this->assertMatchesRegularExpression('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertMatchesRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        } else {
+            $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertRegExp('#"pageType"\s*:\s*"cart"#', $responseBody);
+        }
 
         $this->tearDownPhp5();
     }
@@ -77,10 +87,23 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
 
         $response = $this->getResponse();
         $responseBody = $response->getBody();
-        $this->assertStringContainsString('[Klevu] Simple Product 1', $responseBody);
-        $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
-        $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
-        $this->assertDoesNotMatchRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        if (method_exists($this, 'assertStringContainsString')) {
+            $this->assertStringContainsString('[Klevu] Simple Product 1', $responseBody);
+        } else {
+            $this->assertContains('[Klevu] Simple Product 1', $responseBody);
+        }
+        if (method_exists($this, 'assertStringNotContainsString')) {
+            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        } else {
+            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        }
+        if (method_exists($this, 'assertDoesNotMatchRegularExpression')) {
+            $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertDoesNotMatchRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        } else {
+            $this->assertNotRegExp('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertNotRegExp('#"pageType"\s*:\s*"cart"#', $responseBody);
+        }
 
         $this->tearDownPhp5();
     }
@@ -102,9 +125,19 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
 
         $response = $this->getResponse();
         $responseBody = $response->getBody();
-        $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
-        $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
-        $this->assertDoesNotMatchRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+
+        if (method_exists($this, 'assertStringNotContainsString')) {
+            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        } else {
+            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        }
+        if (method_exists($this, 'assertDoesNotMatchRegularExpression')) {
+            $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertDoesNotMatchRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        } else {
+            $this->assertNotRegExp('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertNotRegExp('#"pageType"\s*:\s*"cart"#', $responseBody);
+        }
 
         $this->tearDownPhp5();
     }
@@ -126,9 +159,18 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
 
         $response = $this->getResponse();
         $responseBody = $response->getBody();
-        $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
-        $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
-        $this->assertDoesNotMatchRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        if (method_exists($this, 'assertStringNotContainsString')) {
+            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        } else {
+            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+        }
+        if (method_exists($this, 'assertDoesNotMatchRegularExpression')) {
+            $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertDoesNotMatchRegularExpression('#"pageType"\s*:\s*"cart"#', $responseBody);
+        } else {
+            $this->assertNotRegExp('#klevu_page_meta\s*=#', $responseBody);
+            $this->assertNotRegExp('#"pageType"\s*:\s*"cart"#', $responseBody);
+        }
 
         $this->tearDownPhp5();
     }

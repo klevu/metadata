@@ -57,6 +57,8 @@ class Configurable implements ProductMetadataProviderInterface
         //$productPriceData = $this->productPriceDataProvider->getPriceDataForProduct($product);
         //$itemSalePrice = $productPriceData->getPrice();
 
+        $itemId = $this->getFirstChildProductId($product);
+        $itemGroupId = (string)$product->getId();
         return [
             'platform' => Constants::KLEVU_PLATFORM_TYPE,
             'pageType' => static::PAGE_TYPE,
@@ -64,13 +66,34 @@ class Configurable implements ProductMetadataProviderInterface
             'itemUrl' => method_exists($product, 'getProductUrl')
                 ? $product->getProductUrl()
                 : '',
-            'itemId' => $this->getFirstChildProductId($product),
-            'itemGroupId' => (string)$product->getId(),
+            'itemId' =>  $this->getKlevuProductId($itemId, $itemGroupId),
+            'itemGroupId' => $itemGroupId,
             /*'itemSalePrice' => (null !== $itemSalePrice)
                 ? number_format($itemSalePrice, 2)
                 : '',
             'itemCurrency' => $productPriceData->getCurrencyCode(),*/
         ];
+    }
+
+    /**
+     * Generate a Klevu product ID for the given product.
+     *
+     * @param $product_id
+     * @param int $parent_id
+     * @return string
+     */
+    private function getKlevuProductId($product_id, $parent_id = 0)
+    {
+        if (empty($parent_id)) {
+            return (string)$product_id;
+        }
+        if (!empty($product_id)) {
+            $parent_id .= Constants::ID_SEPARATOR;
+        } else {
+            $parent_id = "";
+        }
+
+        return sprintf("%s%s", $parent_id, $product_id);
     }
 
     /**
