@@ -185,7 +185,11 @@ class ProductMetadataProviderTest extends TestCase
         $this->assertSame('pdp', $actualResult['pageType'], 'pageType');
         $this->assertSame('[Klevu] Configurable Product 7', $actualResult['itemName'], 'itemName');
         $this->assertSame($this->prepareUrl('klevu-configurable-product-7'), $actualResult['itemUrl'], 'itemUrl');
-        $this->assertSame((string)$expectedSimpleProduct->getId(), $actualResult['itemId'], 'itemId');
+        $this->assertSame(
+            (string)$configurableProduct->getId() . '-' . (string)$expectedSimpleProduct->getId(),
+            $actualResult['itemId'],
+            'itemId'
+        );
         $this->assertSame((string)$configurableProduct->getId(), $actualResult['itemGroupId'], 'itemGroupId');
         //$this->assertSame('99.99', $actualResult['itemSalePrice'], 'itemSalePrice');
         //$this->assertSame('USD', $actualResult['itemCurrency'], 'itemCurrency');
@@ -215,7 +219,11 @@ class ProductMetadataProviderTest extends TestCase
         $productMetadataProvider = $this->objectManager->create(ProductMetadataProviderInterface::class);
         $actualResult = $productMetadataProvider->getMetadataForProduct($configurableProduct);
 
-        $this->assertSame((string)$expectedSimpleProduct->getId(), $actualResult['itemId'], 'itemId');
+        $this->assertSame(
+            (string)$configurableProduct->getId() . '-' . (string)$expectedSimpleProduct->getId(),
+            $actualResult['itemId'],
+            'itemId'
+        );
     }
 
     /**
@@ -243,7 +251,11 @@ class ProductMetadataProviderTest extends TestCase
         $productMetadataProvider = $this->objectManager->create(ProductMetadataProviderInterface::class);
         $actualResult = $productMetadataProvider->getMetadataForProduct($configurableProduct);
 
-        $this->assertSame((string)$expectedSimpleProduct->getId(), $actualResult['itemId'], 'itemId');
+        $this->assertSame(
+            (string)$configurableProduct->getId() . '-' . (string)$expectedSimpleProduct->getId(),
+            $actualResult['itemId'],
+            'itemId'
+        );
     }
 
     /**

@@ -39,6 +39,7 @@ class GetListProductsBlockTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
      * @noinspection PhpParamsInspection
      */
     public function testGetListProductsBlock_BlockExists()
@@ -88,6 +89,7 @@ class GetListProductsBlockTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
      */
     public function testGetListProductsBlock_BlockNotExists()
     {
@@ -125,6 +127,7 @@ class GetListProductsBlockTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
      */
     public function testGetListProductsBlock_Empty()
     {

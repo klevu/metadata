@@ -39,6 +39,7 @@ class GetProductCollectionTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
      * @noinspection PhpParamsInspection
      */
     public function testGetProductCollection_ValidBlock()
@@ -75,6 +76,7 @@ class GetProductCollectionTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
      */
     public function testGetProductsCollection_InvalidBlock()
     {
@@ -108,6 +110,7 @@ class GetProductCollectionTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
      */
     public function testGetProductsCollection_EmptyBlock()
     {

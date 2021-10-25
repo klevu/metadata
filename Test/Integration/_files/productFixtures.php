@@ -122,6 +122,8 @@ foreach ($fixtures as $fixture) {
         $extensionConfigurableAttributes = $product->getExtensionAttributes();
         $extensionConfigurableAttributes->setConfigurableProductOptions($configurableOptions);
         $extensionConfigurableAttributes->setConfigurableProductLinks($associatedProductIds);
+
+        $product->setExtensionAttributes($extensionConfigurableAttributes);
     }
 
     $product->isObjectNew(true);
