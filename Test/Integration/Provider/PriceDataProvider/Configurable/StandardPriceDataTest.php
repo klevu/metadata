@@ -6,6 +6,7 @@ namespace Klevu\Metadata\Test\Integration\Provider\PriceDataProvider\Configurabl
 
 use Klevu\Metadata\Provider\ProductPriceDataProvider\Configurable as ConfigurableProductPriceDataProvider;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Framework\App\ProductMetadataInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\ObjectManager;
 use PHPUnit\Framework\TestCase;
@@ -21,6 +22,11 @@ class StandardPriceDataTest extends TestCase
      * @var ProductRepositoryInterface
      */
     private $productRepository;
+
+    /**
+     * @var string
+     */
+    private $magentoVersion;
 
     /**
      * @magentoAppArea frontend
@@ -246,7 +252,9 @@ class StandardPriceDataTest extends TestCase
 
         $product = $this->productRepository->get('klevu_configurable_9');
         $expectedResults = [
-            'price' => 109.99,
+            'price' => version_compare($this->magentoVersion, '2.2.0', '<')
+                ? 99.99 // Magento changed its internal price data calculation for configurables
+                : 109.99,
             'special_price' => 39.99,
         ];
 
@@ -272,7 +280,9 @@ class StandardPriceDataTest extends TestCase
 
         $product = $this->productRepository->get('klevu_configurable_10');
         $expectedResults = [
-            'price' => 99.99,
+            'price' => version_compare($this->magentoVersion, '2.2.0', '<')
+                ? 79.99 // Magento changed its internal price data calculation for configurables
+                : 99.99,
             'special_price' => 49.99,
         ];
 
@@ -316,6 +326,7 @@ class StandardPriceDataTest extends TestCase
     {
         $this->objectManager = Bootstrap::getObjectManager();
         $this->productRepository = $this->objectManager->get(ProductRepositoryInterface::class);
+        $this->magentoVersion = $this->objectManager->get(ProductMetadataInterface::class)->getVersion();
     }
 
     /**

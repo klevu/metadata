@@ -10,7 +10,7 @@ use Magento\TestFramework\Helper\Bootstrap;
 $objectManager = Bootstrap::getObjectManager();
 
 /** @var EavConfig $eavConfig */
-$eavConfig = $objectManager->get(EavConfig::class);
+$eavConfig = $objectManager->create(EavConfig::class);
 /** @var CategorySetup $installer */
 $installer = $objectManager->create(CategorySetup::class);
 /** @var AttributeRepositoryInterface $attributeRepository */

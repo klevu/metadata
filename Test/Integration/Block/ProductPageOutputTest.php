@@ -43,6 +43,7 @@ class ProductPageOutputTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
      * @magentoDataFixture loadProductFixtures
+     * @magentoDbIsolation disabled
      * @noinspection PhpParamsInspection
      */
     public function testJavascriptIsOutputToPageWhenEnabled()
@@ -82,6 +83,7 @@ class ProductPageOutputTest extends AbstractControllerTestCase
      * @magentoConfigFixture default/klevu_search/metadata/enabled 0
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 0
      * @magentoDataFixture loadProductFixtures
+     * @magentoDbIsolation disabled
      * @noinspection PhpParamsInspection
      */
     public function testJavascriptIsNotOutputToPageWhenDisabled()
@@ -156,7 +158,7 @@ class ProductPageOutputTest extends AbstractControllerTestCase
      * Rolls back creation scripts because annotations use a relative path
      *  from integration tests root
      */
-    public static function loadCategoryFixturesRollback()
+    public static function loadProductFixturesRollback()
     {
         include __DIR__ . '/../_files/productFixtures_rollback.php';
     }
