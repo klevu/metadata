@@ -73,7 +73,7 @@ class CheckoutMetadataProvider implements CheckoutMetadataProviderInterface
                 $return['itemGroupId'] = $itemGroupId;
                 try {
                     $simpleProduct = $this->productRepository->get($cartItem->getSku());
-                    $return['itemId'] = (string)$simpleProduct->getId();
+                    $return['itemId'] = $itemGroupId . Constants::ID_SEPARATOR . $simpleProduct->getId();
                 } catch (NoSuchEntityException $e) {
                     $this->logger->error($e->getMessage());
                 }

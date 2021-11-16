@@ -146,7 +146,7 @@ class CheckoutMetadataProviderTest extends TestCase
         /** @noinspection PhpParamsInspection */
         $this->assertCount(1, $actualResult['cartRecords']);
         $this->assertSame([
-            'itemId' => (string)$simpleProduct->getId(),
+            'itemId' => $configurableProduct->getId() . '-' . $simpleProduct->getId(),
             'itemGroupId' => (string)$configurableProduct->getId(),
         ], $actualResult['cartRecords'][0]);
     }
