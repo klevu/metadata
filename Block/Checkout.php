@@ -4,14 +4,14 @@ namespace Klevu\Metadata\Block;
 
 use Klevu\Metadata\Api\CheckoutMetadataProviderInterface;
 use Klevu\Metadata\Api\SerializerInterface;
-use Klevu\Metadata\Constants;
+use Klevu\Metadata\Service\IsEnabledDeterminer;
 use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context as TemplateContext;
 use Magento\Quote\Api\Data\CartInterface;
-use Magento\Store\Model\ScopeInterface;
 
 class Checkout extends Template implements MetadataInterface
 {
@@ -31,25 +31,32 @@ class Checkout extends Template implements MetadataInterface
     private $checkoutMetadataProvider;
 
     /**
-     * Checkout constructor.
+     * @var IsEnabledDeterminer
+     */
+    private $isEnabledDeterminer;
+
+    /**
      * @param TemplateContext $context
      * @param SerializerInterface $serializer
      * @param CheckoutSession $checkoutSession
      * @param CheckoutMetadataProviderInterface $checkoutMetadataProvider
      * @param array $data
+     * @param IsEnabledDeterminer|null $isEnabledDeterminer
      */
     public function __construct(
         TemplateContext $context,
         SerializerInterface $serializer,
         CheckoutSession $checkoutSession,
         CheckoutMetadataProviderInterface $checkoutMetadataProvider,
-        array $data = []
+        array $data = [],
+        IsEnabledDeterminer $isEnabledDeterminer = null
     ) {
         parent::__construct($context, $data);
 
         $this->serializer = $serializer;
         $this->checkoutSession = $checkoutSession;
         $this->checkoutMetadataProvider = $checkoutMetadataProvider;
+        $this->isEnabledDeterminer = $isEnabledDeterminer ?: ObjectManager::getInstance()->get(IsEnabledDeterminer::class);
     }
 
     /**
@@ -110,11 +117,7 @@ class Checkout extends Template implements MetadataInterface
         }
 
         /** @noinspection PhpCastIsUnnecessaryInspection */
-        if (!$this->_scopeConfig->isSetFlag(
-            Constants::XML_PATH_METADATA_ENABLED,
-            ScopeInterface::SCOPE_STORES,
-            (int)$store->getId()
-        )) {
+        if (!$this->isEnabledDeterminer->execute((int)$store->getId())) {
             return '';
         }
 

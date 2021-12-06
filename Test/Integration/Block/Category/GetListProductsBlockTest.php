@@ -38,11 +38,65 @@ class GetListProductsBlockTest extends AbstractControllerTestCase
      * @magentoCache all disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/categorylanding/enabledcategorynavigation 1
+     * @magentoConfigFixture default_store klevu_search/categorylanding/enabledcategorynavigation 1
      * @magentoDataFixture loadCategoryFixtures
      * @magentoDbIsolation disabled
      * @noinspection PhpParamsInspection
      */
     public function testGetListProductsBlock_BlockExists()
+    {
+        $this->setupPhp5();
+
+        $this->dispatch($this->prepareUrl('klevu-test-category-1'));
+
+        /** @var LayoutInterface $layout */
+        $layout = $this->objectManager->get(LayoutInterface::class);
+
+        /** @var CategoryBlock $categoryBlock */
+        $categoryBlock = $layout->getBlock('klevu_metadata_category');
+        $this->assertInstanceOf(
+            CategoryBlock::class,
+            $categoryBlock,
+            'klevu_metadata_category instance of Block\Category'
+        );
+
+        $listProductsBlockName = $categoryBlock->getData('list_products_block_name');
+        $this->assertNotEmpty($listProductsBlockName, 'list_products_block_name is not empty');
+
+        /** @var BlockInterface|bool $layoutBlock */
+        $layoutBlock = $layout->getBlock($listProductsBlockName);
+        $this->assertInstanceOf(
+            BlockInterface::class,
+            $layoutBlock,
+            'layoutBlock instanceof BlockInterface'
+        );
+
+        $listProductsBlock = $categoryBlock->getListProductsBlock();
+        $this->assertInstanceOf(
+            get_class($layoutBlock),
+            $listProductsBlock,
+            'listProductsBlock instanceof BlockInterface'
+        );
+        $this->assertSame(
+            $layoutBlock->getNameInLayout(),
+            $listProductsBlock->getNameInLayout(),
+            'layoutBlock name in layout matches listProductsBlock'
+        );
+    }
+
+    /**
+     * @magentoAppArea frontend
+     * @magentoCache all disabled
+     * @magentoConfigFixture default/klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/categorylanding/enabledcategorynavigation 2
+     * @magentoConfigFixture default_store klevu_search/categorylanding/enabledcategorynavigation 2
+     * @magentoDataFixture loadCategoryFixtures
+     * @magentoDbIsolation disabled
+     * @noinspection PhpParamsInspection
+     */
+    public function testGetListProductsBlock_BlockExists_CatNavPreserveLayout()
     {
         $this->setupPhp5();
 

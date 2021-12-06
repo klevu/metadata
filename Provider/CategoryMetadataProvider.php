@@ -7,8 +7,10 @@ use Klevu\Metadata\Api\ProductMetadataProviderInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Category;
+use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Klevu\Metadata\Constants;
 
@@ -20,13 +22,20 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
     private $productMetadataProvider;
 
     /**
-     * CategoryMetadataProvider constructor.
+     * @var CategoryCollectionFactory
+     */
+    private $categoryCollectionFactory;
+
+    /**
      * @param ProductMetadataProviderInterface $productMetadataProvider
+     * @param CategoryCollectionFactory $categoryCollectionFactory
      */
     public function __construct(
-        ProductMetadataProviderInterface $productMetadataProvider
+        ProductMetadataProviderInterface $productMetadataProvider,
+        CategoryCollectionFactory $categoryCollectionFactory
     ) {
         $this->productMetadataProvider = $productMetadataProvider;
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
     }
 
     /**
@@ -53,26 +62,22 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
 
     /**
      * @param CategoryInterface $category
-     * @return string[]
+     * @return array|string[]
+     * @throws LocalizedException
      */
     private function getCategoryNamesHierarchy(CategoryInterface $category)
     {
-        if (!method_exists($category, 'getParentCategories')
-            || !method_exists($category, 'getPathInStore')) {
+        if (!method_exists($category, 'getPathInStore')) {
             return [];
         }
 
-        $parentCategories = $category->getParentCategories();
         $pathIds = array_reverse(explode(',', $category->getPathInStore()));
+        $parentCategories = $this->categoryCollectionFactory->create();
+        $parentCategories->addFieldToFilter('entity_id', ['in' => $pathIds]);
+        $parentCategories->addAttributeToSelect('name');
 
         $categoryNames = array_map(static function ($pathId) use ($parentCategories) {
-            $parentCategory = isset($parentCategories[$pathId])
-                ? $parentCategories[$pathId]
-                : null;
-            if (!($parentCategory instanceof CategoryInterface)) {
-                return null;
-            }
-
+            $parentCategory = $parentCategories->getItemById($pathId);
             switch (true) {
                 case $parentCategory instanceof DataObject:
                     $return = $parentCategory->getDataUsingMethod(Category::KEY_NAME);

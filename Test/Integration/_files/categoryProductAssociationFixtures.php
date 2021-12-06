@@ -6,6 +6,7 @@ use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollectio
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
+use Magento\Indexer\Model\IndexerFactory;
 use Magento\TestFramework\Helper\Bootstrap;
 
 $objectManager = Bootstrap::getObjectManager();
@@ -37,4 +38,25 @@ foreach ($productCollection as $product) {
         $product->getSku(),
         $categoryCollection->getColumnValues('entity_id')
     );
+}
+
+$indexerFactory = $objectManager->get(IndexerFactory::class);
+$indexes = [
+//    'catalog_product_attribute',
+//    'catalog_product_price',
+//    'inventory',
+//    'cataloginventory_stock',
+    'catalog_category_product',
+    'catalog_product_category',
+    'catalogsearch_fulltext',
+];
+foreach ($indexes as $index) {
+    $indexer = $indexerFactory->create();
+    try {
+        $indexer->load($index);
+        $indexer->reindexAll();
+    } catch (\InvalidArgumentException $e) {
+        // Support for older versions of Magento which may not have all indexers
+        continue;
+    }
 }

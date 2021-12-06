@@ -4,13 +4,13 @@ namespace Klevu\Metadata\Block;
 
 use Klevu\Metadata\Api\ProductMetadataProviderInterface;
 use Klevu\Metadata\Api\SerializerInterface;
-use Klevu\Metadata\Constants;
+use Klevu\Metadata\Service\IsEnabledDeterminer;
 use Klevu\Registry\Api\ProductRegistryInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context as TemplateContext;
-use Magento\Store\Model\ScopeInterface;
 
 class Product extends Template implements MetadataInterface
 {
@@ -30,25 +30,32 @@ class Product extends Template implements MetadataInterface
     private $productMetadataProvider;
 
     /**
-     * Product constructor.
+     * @var IsEnabledDeterminer
+     */
+    private $isEnabledDeterminer;
+
+    /**
      * @param TemplateContext $context
      * @param SerializerInterface $serializer
      * @param ProductRegistryInterface $productRegistry
      * @param ProductMetadataProviderInterface $productMetadataProvider
      * @param array $data
+     * @param IsEnabledDeterminer|null $isEnabledDeterminer
      */
     public function __construct(
         TemplateContext $context,
         SerializerInterface $serializer,
         ProductRegistryInterface $productRegistry,
         ProductMetadataProviderInterface $productMetadataProvider,
-        array $data = []
+        array $data = [],
+        IsEnabledDeterminer $isEnabledDeterminer = null
     ) {
         parent::__construct($context, $data);
 
         $this->serializer = $serializer;
         $this->productRegistry = $productRegistry;
         $this->productMetadataProvider = $productMetadataProvider;
+        $this->isEnabledDeterminer = $isEnabledDeterminer ?: ObjectManager::getInstance()->get(IsEnabledDeterminer::class);
     }
 
     /**
@@ -103,11 +110,7 @@ class Product extends Template implements MetadataInterface
         }
 
         /** @noinspection PhpCastIsUnnecessaryInspection */
-        if (!$this->_scopeConfig->isSetFlag(
-            Constants::XML_PATH_METADATA_ENABLED,
-            ScopeInterface::SCOPE_STORES,
-            (int)$store->getId()
-        )) {
+        if (!$this->isEnabledDeterminer->execute((int)$store->getId())) {
             return '';
         }
 

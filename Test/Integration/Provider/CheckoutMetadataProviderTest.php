@@ -158,11 +158,12 @@ class CheckoutMetadataProviderTest extends TestCase
      * @magentoCache all disabled
      * @magentoDataFixture loadProductFixtures
      * @depends testGetMetadataForCartSimpleProducts
+     * @todo Implement testGetMetadataForCartBundleProducts
      */
-    public function testGetMetadataForCartBundleProducts()
-    {
-        $this->markTestSkipped('Not currently implemented');
-    }
+//    public function testGetMetadataForCartBundleProducts()
+//    {
+//        $this->markTestSkipped('Not currently implemented');
+//    }
 
     /**
      * @magentoAppArea frontend
@@ -171,11 +172,12 @@ class CheckoutMetadataProviderTest extends TestCase
      * @magentoCache all disabled
      * @magentoDataFixture loadProductFixtures
      * @depends testGetMetadataForCartSimpleProducts
+     * @todo Implement testGetMetadataForCartGroupedProducts
      */
-    public function testGetMetadataForCartGroupedProducts()
-    {
-        $this->markTestSkipped('Not currently implemented');
-    }
+//    public function testGetMetadataForCartGroupedProducts()
+//    {
+//        $this->markTestSkipped('Not currently implemented');
+//    }
 
     /**
      * @return void

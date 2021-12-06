@@ -4,17 +4,17 @@ namespace Klevu\Metadata\Block;
 
 use Klevu\Metadata\Api\CategoryMetadataProviderInterface;
 use Klevu\Metadata\Api\SerializerInterface;
-use Klevu\Metadata\Constants;
+use Klevu\Metadata\Service\IsEnabledDeterminer;
 use Klevu\Registry\Api\CategoryRegistryInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\BlockInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context as TemplateContext;
-use Magento\Store\Model\ScopeInterface;
 
 class Category extends Template implements MetadataInterface
 {
@@ -39,13 +39,18 @@ class Category extends Template implements MetadataInterface
     private $productCollectionFactory;
 
     /**
-     * Category constructor.
+     * @var IsEnabledDeterminer
+     */
+    private $isEnabledDeterminer;
+
+    /**
      * @param TemplateContext $context
      * @param SerializerInterface $serializer
      * @param CategoryRegistryInterface $categoryRegistry
      * @param CategoryMetadataProviderInterface $categoryMetadataProvider
      * @param ProductCollectionFactory $productCollectionFactory
      * @param array $data
+     * @param IsEnabledDeterminer|null $isEnabledDeterminer
      */
     public function __construct(
         TemplateContext $context,
@@ -53,7 +58,8 @@ class Category extends Template implements MetadataInterface
         CategoryRegistryInterface $categoryRegistry,
         CategoryMetadataProviderInterface $categoryMetadataProvider,
         ProductCollectionFactory $productCollectionFactory,
-        array $data = []
+        array $data = [],
+        IsEnabledDeterminer $isEnabledDeterminer = null
     ) {
         parent::__construct($context, $data);
 
@@ -61,6 +67,7 @@ class Category extends Template implements MetadataInterface
         $this->categoryRegistry = $categoryRegistry;
         $this->categoryMetadataProvider = $categoryMetadataProvider;
         $this->productCollectionFactory = $productCollectionFactory;
+        $this->isEnabledDeterminer = $isEnabledDeterminer ?: ObjectManager::getInstance()->get(IsEnabledDeterminer::class);
     }
 
     /**
@@ -153,11 +160,7 @@ class Category extends Template implements MetadataInterface
         }
 
         /** @noinspection PhpCastIsUnnecessaryInspection */
-        if (!$this->_scopeConfig->isSetFlag(
-            Constants::XML_PATH_METADATA_ENABLED,
-            ScopeInterface::SCOPE_STORES,
-            (int)$store->getId()
-        )) {
+        if (!$this->isEnabledDeterminer->execute((int)$store->getId())) {
             return '';
         }
 
