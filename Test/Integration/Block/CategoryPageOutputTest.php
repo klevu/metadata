@@ -33,6 +33,10 @@ class CategoryPageOutputTest extends AbstractControllerTestCase
      * @magentoCache all disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default_store klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default/klevu_search/general/enabled 0
+     * @magentoConfigFixture default_store klevu_search/general/enabled 0
      * @magentoDataFixture loadCategoryFixtures
      * @noinspection PhpParamsInspection
      */
@@ -64,6 +68,10 @@ class CategoryPageOutputTest extends AbstractControllerTestCase
      * @magentoAppArea frontend
      * @magentoConfigFixture default/klevu_search/metadata/enabled 0
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 0
+     * @magentoConfigFixture default/klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default_store klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default/klevu_search/general/enabled 0
+     * @magentoConfigFixture default_store klevu_search/general/enabled 0
      * @magentoDataFixture loadCategoryFixtures
      * @noinspection PhpParamsInspection
      */

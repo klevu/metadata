@@ -34,6 +34,12 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
      * @magentoDbIsolation disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default_store klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default/klevu_search/general/enabled 0
+     * @magentoConfigFixture default_store klevu_search/general/enabled 0
+     * @magentoConfigFixture default/klevu_search/developer/theme_version v1
+     * @magentoConfigFixture default_store klevu_search/developer/theme_version v1
      * @magentoDataFixture loadProductFixtures
      * @noinspection PhpParamsInspection
      */
@@ -72,6 +78,12 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
      * @magentoDbIsolation disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 0
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 0
+     * @magentoConfigFixture default/klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default_store klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default/klevu_search/general/enabled 0
+     * @magentoConfigFixture default_store klevu_search/general/enabled 0
+     * @magentoConfigFixture default/klevu_search/developer/theme_version v1
+     * @magentoConfigFixture default_store klevu_search/developer/theme_version v1
      * @magentoDataFixture loadProductFixtures
      * @depends testJavascriptIsOutputToPageWhenEnabled_ItemsInCart
      * @noinspection PhpParamsInspection
@@ -114,6 +126,12 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
      * @magentoDbIsolation disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default_store klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default/klevu_search/general/enabled 0
+     * @magentoConfigFixture default_store klevu_search/general/enabled 0
+     * @magentoConfigFixture default/klevu_search/developer/theme_version v1
+     * @magentoConfigFixture default_store klevu_search/developer/theme_version v1
      * @depends testJavascriptIsOutputToPageWhenEnabled_ItemsInCart
      * @noinspection PhpParamsInspection
      */
@@ -148,6 +166,12 @@ class CheckoutCartOutputTest extends AbstractControllerTestCase
      * @magentoDbIsolation disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 0
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 0
+     * @magentoConfigFixture default/klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default_store klevu_search/recommendations/enabled 0
+     * @magentoConfigFixture default/klevu_search/general/enabled 0
+     * @magentoConfigFixture default_store klevu_search/general/enabled 0
+     * @magentoConfigFixture default/klevu_search/developer/theme_version v1
+     * @magentoConfigFixture default_store klevu_search/developer/theme_version v1
      * @depends testJavascriptIsOutputToPageWhenEnabled_ItemsInCart
      * @noinspection PhpParamsInspection
      */

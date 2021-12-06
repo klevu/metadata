@@ -38,6 +38,8 @@ class GetProductCollectionTest extends AbstractControllerTestCase
      * @magentoCache all disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/categorylanding/enabledcategorynavigation 1
+     * @magentoConfigFixture default_store klevu_search/categorylanding/enabledcategorynavigation 1
      * @magentoDataFixture loadCategoryFixtures
      * @magentoDbIsolation disabled
      * @noinspection PhpParamsInspection
@@ -75,6 +77,8 @@ class GetProductCollectionTest extends AbstractControllerTestCase
      * @magentoCache all disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/categorylanding/enabledcategorynavigation 1
+     * @magentoConfigFixture default_store klevu_search/categorylanding/enabledcategorynavigation 1
      * @magentoDataFixture loadCategoryFixtures
      * @magentoDbIsolation disabled
      */
@@ -109,6 +113,8 @@ class GetProductCollectionTest extends AbstractControllerTestCase
      * @magentoCache all disabled
      * @magentoConfigFixture default/klevu_search/metadata/enabled 1
      * @magentoConfigFixture default_store klevu_search/metadata/enabled 1
+     * @magentoConfigFixture default/klevu_search/categorylanding/enabledcategorynavigation 1
+     * @magentoConfigFixture default_store klevu_search/categorylanding/enabledcategorynavigation 1
      * @magentoDataFixture loadCategoryFixtures
      * @magentoDbIsolation disabled
      */

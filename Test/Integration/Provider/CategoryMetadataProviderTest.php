@@ -52,6 +52,8 @@ class CategoryMetadataProviderTest extends TestCase
      * @magentoAppIsolation enabled
      * @magentoDbIsolation disabled
      * @magentoCache all disabled
+     * @magentoConfigFixture default/klevu_search/categorylanding/enabledcategorynavigation 1
+     * @magentoConfigFixture default_store klevu_search/categorylanding/enabledcategorynavigation 1
      * @magentoDataFixture loadCategoryFixtures
      * @magentoDataFixture loadProductFixtures
      * @magentoDataFixture loadCategoryProductAssociationFixtures
@@ -129,24 +131,31 @@ class CategoryMetadataProviderTest extends TestCase
             'klevu_simple_4',
             'klevu_configurable_4',
         ];
+
         $this->assertSameSize($expectedSkus, $actualResult['categoryProducts']);
-        foreach ($expectedSkus as $i => $sku) {
+        foreach ($expectedSkus as $sku) {
             $product = $this->productRepository->get($sku);
             switch ($product->getTypeId()) {
                 case 'simple':
-                    $this->assertSame([
+                    $expectedCategoryProductItem = [
                         'itemId' => (string)$product->getId(),
                         'itemGroupId' => '',
-                    ], $actualResult['categoryProducts'][$i]);
+                    ];
                     break;
 
                 case 'configurable':
-                    $this->assertSame([
+                    $expectedCategoryProductItem = [
                         'itemId' => '',
                         'itemGroupId' => (string)$product->getId(),
-                    ], $actualResult['categoryProducts'][$i]);
+                    ];
+                    break;
+
+                default:
+                    $expectedCategoryProductItem = null;
                     break;
             }
+
+            $this->assertContains($expectedCategoryProductItem, $actualResult['categoryProducts']);
         }
     }
 
@@ -196,24 +205,27 @@ class CategoryMetadataProviderTest extends TestCase
             'klevu_simple_4',
             'klevu_simple_5',
         ];
+
         $this->assertSameSize($expectedSkus, $actualResult['categoryProducts']);
-        foreach ($expectedSkus as $i => $sku) {
+        foreach ($expectedSkus as $sku) {
             $product = $this->productRepository->get($sku);
             switch ($product->getTypeId()) {
                 case 'simple':
-                    $this->assertSame([
+                    $expectedCategoryProductItem = [
                         'itemId' => (string)$product->getId(),
                         'itemGroupId' => '',
-                    ], $actualResult['categoryProducts'][$i]);
+                    ];
                     break;
 
                 case 'configurable':
-                    $this->assertSame([
+                    $expectedCategoryProductItem = [
                         'itemId' => '',
                         'itemGroupId' => (string)$product->getId(),
-                    ], $actualResult['categoryProducts'][$i]);
+                    ];
                     break;
             }
+
+            $this->assertContains($expectedCategoryProductItem, $actualResult['categoryProducts']);
         }
     }
 

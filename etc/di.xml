@@ -88,4 +88,12 @@
             <argument name="serializer" xsi:type="object">Klevu\Metadata\Serializer\Json</argument>
         </arguments>
     </type>
+
+    <type name="Klevu\Metadata\Service\IsEnabledDeterminer">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="_klevu_metadata_config_is_enabled" xsi:type="object">Klevu\Metadata\Service\IsEnabledCondition\ConfigIsEnabledCondition</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

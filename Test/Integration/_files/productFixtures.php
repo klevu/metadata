@@ -10,6 +10,7 @@ use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\ConfigurableProduct\Helper\Product\Options\Factory as ConfigurableOptionsFactory;
 use Magento\Eav\Model\Config as EavConfig;
 use Magento\Framework\Registry;
+use Magento\Indexer\Model\IndexerFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 
@@ -133,6 +134,23 @@ foreach ($fixtures as $fixture) {
     $productRepository->save($product);
 }
 
+$indexerFactory = $objectManager->get(IndexerFactory::class);
+$indexes = [
+    'catalog_product_attribute',
+    'catalog_product_price',
+    'inventory',
+    'cataloginventory_stock',
+];
+foreach ($indexes as $index) {
+    $indexer = $indexerFactory->create();
+    try {
+        $indexer->load($index);
+        $indexer->reindexAll();
+    } catch (\InvalidArgumentException $e) {
+        // Support for older versions of Magento which may not have all indexers
+        continue;
+    }
+}
 
 $registry->unregister('isSecureArea');
 $registry->register('isSecureArea', false);
