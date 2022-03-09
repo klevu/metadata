@@ -1,5 +1,6 @@
 <?php
 /** @noinspection PhpSameParameterValueInspection */
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace Klevu\Metadata\Test\Integration\Provider;
@@ -158,12 +159,37 @@ class CheckoutMetadataProviderTest extends TestCase
      * @magentoCache all disabled
      * @magentoDataFixture loadProductFixtures
      * @depends testGetMetadataForCartSimpleProducts
-     * @todo Implement testGetMetadataForCartBundleProducts
      */
-//    public function testGetMetadataForCartBundleProducts()
-//    {
-//        $this->markTestSkipped('Not currently implemented');
-//    }
+    public function testGetMetadataForCartBundleProducts()
+    {
+        $this->setupPhp5();
+
+        /** @var Product $bundleProduct */
+        $bundleProduct = $this->productRepository->get('klevu_bundle_1');
+        /** @var Product $simpleProduct */
+        $simpleProduct = $this->productRepository->get('klevu_simple_child_1');
+
+        $requestParams = [
+            'product' => $bundleProduct->getId(),
+            'item' => $bundleProduct->getId(),
+            'bundle_option[' . $simpleProduct->getId() . ']' => 1
+        ];
+
+        $quote = $this->createNewGuestCart(1, [
+            'klevu_bundle_1' => new DataObject($requestParams),
+        ]);
+
+        /** @var CheckoutMetadataProviderInterface $checkoutMetadataProvider */
+        $checkoutMetadataProvider = $this->objectManager->get(CheckoutMetadataProviderInterface::class);
+        $actualResult = $checkoutMetadataProvider->getMetadataForCart($quote);
+
+        /** @noinspection PhpParamsInspection */
+        $this->assertCount(1, $actualResult['cartRecords']);
+        $this->assertSame([
+            'itemId' => $bundleProduct->getId(),
+            'itemGroupId' => '',
+        ], $actualResult['cartRecords'][0]);
+    }
 
     /**
      * @magentoAppArea frontend
@@ -172,12 +198,37 @@ class CheckoutMetadataProviderTest extends TestCase
      * @magentoCache all disabled
      * @magentoDataFixture loadProductFixtures
      * @depends testGetMetadataForCartSimpleProducts
-     * @todo Implement testGetMetadataForCartGroupedProducts
      */
-//    public function testGetMetadataForCartGroupedProducts()
-//    {
-//        $this->markTestSkipped('Not currently implemented');
-//    }
+    public function testGetMetadataForCartGroupedProducts()
+    {
+        $this->setupPhp5();
+
+        /** @var Product $groupedProduct */
+        $groupedProduct = $this->productRepository->get('klevu_grouped_1');
+        /** @var Product $simpleProduct */
+        $simpleProduct = $this->productRepository->get('klevu_simple_child_1');
+
+        $requestParams = [
+            'product' => $groupedProduct->getId(),
+            'item' => $groupedProduct->getId(),
+            'super_group[' . $simpleProduct->getId() . ']' => 1
+        ];
+        $quote = $this->createNewGuestCart(1, [
+            'klevu_grouped_1' => new DataObject($requestParams),
+        ]);
+
+        /** @var CheckoutMetadataProviderInterface $checkoutMetadataProvider */
+        $checkoutMetadataProvider = $this->objectManager->get(CheckoutMetadataProviderInterface::class);
+        $actualResult = $checkoutMetadataProvider->getMetadataForCart($quote);
+
+        /** @noinspection PhpParamsInspection */
+        $this->assertCount(1, $actualResult['cartRecords']);
+        $this->assertSame([
+            'itemId' => $groupedProduct->getId(),
+            'itemGroupId' => '',
+        ], $actualResult['cartRecords'][0]);
+
+    }
 
     /**
      * @return void

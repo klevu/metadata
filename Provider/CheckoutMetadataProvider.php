@@ -7,6 +7,7 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable as ProductTypeConfigurable;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\GroupedProduct\Model\Product\Type\Grouped;
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Api\Data\CartItemInterface;
 use Psr\Log\LoggerInterface;
@@ -30,17 +31,18 @@ class CheckoutMetadataProvider implements CheckoutMetadataProviderInterface
      * @param ProductRepositoryInterface $productRepository
      */
     public function __construct(
-        LoggerInterface $logger,
+        LoggerInterface            $logger,
         ProductRepositoryInterface $productRepository
-    ) {
+    )
+    {
         $this->logger = $logger;
         $this->productRepository = $productRepository;
     }
 
     /**
-     * @api
      * @param CartInterface $cart
      * @return array
+     * @api
      */
     public function getMetadataForCart(CartInterface $cart)
     {
@@ -67,6 +69,18 @@ class CheckoutMetadataProvider implements CheckoutMetadataProviderInterface
         ];
 
         switch ($cartItem->getProductType()) {
+            //Injecting Grouped product as a simple for its child products
+            case Grouped::TYPE_CODE:
+                try {
+                    $data = $cartItem->getBuyRequest();
+                    $superProductConfig = $data->getDataUsingMethod('super_product_config');
+                    $return['itemId'] = !empty($superProductConfig['product_id'])
+                        ? $superProductConfig['product_id']
+                        : '';
+                } catch (NoSuchEntityException $e) {
+                    $this->logger->error($e->getMessage());
+                }
+                break;
             case ProductTypeConfigurable::TYPE_CODE:
                 $itemGroupId = $return['itemId'];
                 $return['itemId'] = '';

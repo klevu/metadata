@@ -609,6 +609,49 @@ $fixtures = [
         'child_skus' => [
             'klevu_simple_child_1',
             'klevu_simple_child_5',
+        ]
+    ], [
+        'type_id' => 'grouped',
+        'sku' => 'klevu_grouped_1',
+        'name' => '[Klevu] Grouped Product 1',
+        'description' => '[Klevu Test Fixtures] Grouped Product 1 Description',
+        'attribute_set_id' => 4,
+        'website_ids' => [
+            $defaultStoreView->getWebsiteId(),
         ],
-    ],
+        'tax_class_id' => 2,
+        'url_key' => 'klevu-grouped-product-1',
+        'visibility' => Visibility::VISIBILITY_BOTH,
+        'status' => Status::STATUS_ENABLED,
+        'associated_skus' => [
+            'klevu_simple_child_1'
+        ]
+    ], [
+        'type_id' => 'bundle',
+        'sku' => 'klevu_bundle_1',
+        'name' => '[Klevu] Bundle Product 1',
+        'description' => '[Klevu Test Fixtures] Bundle Product 1 Description',
+        'attribute_set_id' => 4,
+        'website_ids' => [
+            $defaultStoreView->getWebsiteId(),
+        ],
+        'price' => 100.00,
+        'special_price' => 49.99,
+        'weight' => 12,
+        'meta_title' => '[Klevu] Bundle Product Test',
+        'meta_description' => '[Klevu Test Fixtures] assigned bundle product',
+        'tax_class_id' => 2,
+        'stock_data' => [
+            'use_config_manage_stock'   => 1,
+            'qty'                       => 100,
+            'is_qty_decimal'            => 0,
+            'is_in_stock'               => 1,
+        ],
+        'url_key' => 'klevu-bundle-product-test-' . md5(rand()),
+        'visibility' => Visibility::VISIBILITY_BOTH,
+        'status' => Status::STATUS_ENABLED,
+        'associated_skus' => [
+            'klevu_simple_child_1'
+        ]
+    ]
 ];
