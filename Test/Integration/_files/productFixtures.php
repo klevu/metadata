@@ -13,6 +13,9 @@ use Magento\Framework\Registry;
 use Magento\Indexer\Model\IndexerFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\TestFramework\Helper\Bootstrap;
+use Magento\Bundle\Api\Data\OptionInterfaceFactory;
+use Magento\Catalog\Api\Data\ProductLinkInterfaceFactory;
+use Magento\Bundle\Api\Data\LinkInterfaceFactory;
 
 require __DIR__ . '/productAttributeFixtures.php';
 
@@ -133,6 +136,130 @@ foreach ($fixtures as $fixture) {
     $productRepository->cleanCache();
     $productRepository->save($product);
 }
+
+//setting up grouped product
+foreach ($fixtures as $fixture) {
+    if ($fixture['type_id'] !== 'grouped') {
+        continue;
+    }
+
+    /** @var $product Product */
+    $product = $objectManager->create(Product::class);
+    $product->isObjectNew(true);
+    $product->addData($fixture);
+
+    $product = $productRepository->save($product);
+    $indexerProcessor->reindexRow($product->getId());
+
+    $newLinks = [];
+    $productLinkFactory = $objectManager->get(\Magento\Catalog\Api\Data\ProductLinkInterfaceFactory::class);
+
+    /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepositorySimple */
+    $productRepositorySimple = $objectManager->get(\Magento\Catalog\Api\ProductRepositoryInterface::class);
+
+    /** @var \Magento\Catalog\Api\Data\ProductLinkInterface $productLink */
+    $productLink = $productLinkFactory->create();
+    $linkedProduct = $productRepositorySimple->get($fixture['associated_skus'][0]);
+    $productLink->setSku($product->getSku())
+        ->setLinkType('associated')
+        ->setLinkedProductSku($linkedProduct->getSku())
+        ->setLinkedProductType($linkedProduct->getTypeId())
+        ->setPosition(1)
+        ->getExtensionAttributes()
+        ->setQty(1);
+    $newLinks[] = $productLink;
+
+    $product->setProductLinks($newLinks);
+    $product->setStockData(['use_config_manage_stock' => 1, 'is_in_stock' => 1]);
+    $productRepositorySimple->save($product);
+}
+
+//setting up bundle product
+foreach ($fixtures as $fixture) {
+    if ($fixture['type_id'] !== 'bundle') {
+        continue;
+    }
+
+    /** @var $bundleProduct Product */
+    $bundleProduct = $objectManager->create(Product::class);
+    $bundleProduct->isObjectNew(true);
+    $bundleProduct->addData($fixture);
+
+    /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepositorySimple */
+    $productRepositorySimple = $objectManager->get(\Magento\Catalog\Api\ProductRepositoryInterface::class);
+    $linkedProduct = $productRepositorySimple->get($fixture['associated_skus'][0]);
+
+    $bundleProduct->setPriceView(1)
+        ->setSkuType(1)
+        ->setWeightType(1)
+        ->setPriceType(1)
+        ->setShipmentType(0)
+        ->setPrice(10.0)
+        ->setBundleOptionsData(
+            [
+                [
+                    'title' => 'Bundle Product Items',
+                    'default_title' => 'Bundle Product Items',
+                    'type' => 'select', 'required' => 1,
+                    'delete' => '',
+                ],
+            ]
+        )
+        ->setBundleSelectionsData(
+            [
+                [
+                    [
+                        'product_id' => $linkedProduct->getId(),
+                        'selection_price_value' => 1.99,
+                        'selection_qty' => 1,
+                        'selection_can_change_qty' => 1,
+                        'delete' => '',
+
+                    ],
+                ],
+            ]
+        );
+
+    if ($bundleProduct->getBundleOptionsData()) {
+        $options = [];
+        foreach ($bundleProduct->getBundleOptionsData() as $key => $optionData) {
+            if (!(bool)$optionData['delete']) {
+                $option = $objectManager->create(OptionInterfaceFactory::class)
+                    ->create(['data' => $optionData]);
+                $option->setSku($bundleProduct->getSku());
+                $option->setOptionId(null);
+
+                $links = [];
+                $bundleLinks = $bundleProduct->getBundleSelectionsData();
+                if (!empty($bundleLinks[$key])) {
+                    foreach ($bundleLinks[$key] as $linkData) {
+                        if (!(bool)$linkData['delete']) {
+                            /** @var \Magento\Bundle\Api\Data\LinkInterface$link */
+                            $link = $objectManager->create(LinkInterfaceFactory::class)
+                                ->create(['data' => $linkData]);
+                            $linkProduct = $productRepository->getById($linkData['product_id']);
+                            $link->setSku($linkProduct->getSku());
+                            $link->setQty($linkData['selection_qty']);
+                            $link->setPrice($linkData['selection_price_value']);
+                            if (isset($linkData['selection_can_change_qty'])) {
+                                $link->setCanChangeQuantity($linkData['selection_can_change_qty']);
+                            }
+                            $links[] = $link;
+                        }
+                    }
+                    $option->setProductLinks($links);
+                    $options[] = $option;
+                }
+            }
+        }
+        $extension = $bundleProduct->getExtensionAttributes();
+        $extension->setBundleProductOptions($options);
+        $bundleProduct->setExtensionAttributes($extension);
+    }
+
+    $productRepository->save($bundleProduct, true);
+    $productRepository->cleanCache();
+}//end bundle product
 
 $indexerFactory = $objectManager->get(IndexerFactory::class);
 $indexes = [
