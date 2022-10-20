@@ -83,7 +83,7 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
                     $return = $parentCategory->getDataUsingMethod(Category::KEY_NAME);
                     break;
 
-                case method_exists($parentCategory, 'getName'):
+                case $parentCategory && method_exists($parentCategory, 'getName'):
                     $return = $parentCategory->getName();
                     break;
 
