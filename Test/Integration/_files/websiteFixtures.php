@@ -38,6 +38,19 @@ $websiteFixtures = [
 
 $objectManager = Bootstrap::getObjectManager();
 
+if (class_exists(\Magento\Elasticsearch\SearchAdapter\ConnectionManager::class)) {
+    try {
+        /** @var \Magento\Elasticsearch\SearchAdapter\ConnectionManager $connectionManager */
+        $connectionManager = $objectManager->get(\Magento\Elasticsearch\SearchAdapter\ConnectionManager::class);
+        $elasticsearchConnection = $connectionManager->getConnection([]);
+        $elasticsearchConnection->deleteIndex('magento2_*');
+    } catch (\RuntimeException $e) {
+        if ('Elasticsearch client is not set.' !== $e->getMessage()) {
+            throw $e;
+        }
+    }
+}
+
 foreach ($websiteFixtures as $websiteCode => $websiteFixture) {
     /** @var Website $website */
     $website = $objectManager->create(Website::class);
