@@ -5,6 +5,7 @@
     <preference for="Klevu\Metadata\Api\CheckoutMetadataProviderInterface" type="Klevu\Metadata\Provider\CheckoutMetadataProvider"/>
     <preference for="Klevu\Metadata\Api\ProductMetadataProviderInterface" type="Klevu\Metadata\Provider\ProductMetadataProvider"/>
     <preference for="Klevu\Metadata\Api\ProductPriceDataProviderInterface" type="Klevu\Metadata\Provider\ProductPriceDataProvider"/>
+    <preference for="Klevu\Metadata\Api\SuccessMetadataProviderInterface" type="Klevu\Metadata\Provider\SuccessMetadataProvider"/>
 
     <!-- Metadata Providers -->
     <virtualType name="Klevu\Metadata\Provider\ProductMetadataProvider\Simple" type="Klevu\Metadata\Provider\ProductMetadataProvider\Base"/>
@@ -83,6 +84,12 @@
         </arguments>
     </type>
 
+    <type name="Klevu\Metadata\Block\Success">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Klevu\Metadata\Serializer\Json</argument>
+        </arguments>
+    </type>
+
     <type name="Klevu\Metadata\Block\Product">
         <arguments>
             <argument name="serializer" xsi:type="object">Klevu\Metadata\Serializer\Json</argument>
@@ -94,6 +101,22 @@
             <argument name="isEnabledConditions" xsi:type="array">
                 <item name="_klevu_metadata_config_is_enabled" xsi:type="object">Klevu\Metadata\Service\IsEnabledCondition\ConfigIsEnabledCondition</item>
             </argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Metadata\Service\IsOrderSyncEnabledDeterminer">
+        <arguments>
+            <argument name="isOrderSyncConditions" xsi:type="array">
+                <item name="_klevu_metadata_config_is_enabled" xsi:type="object">Klevu\Metadata\Service\IsEnabledCondition\ConfigIsEnabledCondition</item>
+                <item name="_klevu_metadata_config_is_sync_enabled" xsi:type="object">Klevu\Metadata\Service\IsEnabledCondition\OrderSyncIsEnabledCondition</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Metadata\Provider\SuccessMetadataProvider">
+        <arguments>
+            <argument name="dataProvider" xsi:type="object">Klevu\Search\Provider\Sync\Order\Item\DataProvider</argument>
+            <argument name="orderSyncItemDataConvertor" xsi:type="object">Klevu\Metadata\Service\Convertor\OrderSyncItemDataConvertor</argument>
         </arguments>
     </type>
 </config>

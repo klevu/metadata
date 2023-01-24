@@ -4,6 +4,7 @@
         <klevu_search>
             <metadata>
                 <enabled>0</enabled>
+                <ordersync>0</ordersync>
             </metadata>
         </klevu_search>
     </default>
