@@ -4,12 +4,20 @@
         <section id="klevu_search" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Search Configuration</label>
             <tab>klevu</tab>
-            <group id="metadata" translate="label comment" sortOrder="999" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="metadata" translate="label comment" sortOrder="999" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Metadata Settings</label>
-                <field id="enabled" translate="label comment" sortOrder="1" type="select"  showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enabled" translate="label comment" sortOrder="1" type="select"  showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Metadata</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[Klevu Metadata is a small JavaScript variable which is populated on certain pages of your website, for example Home, Category, Product and Cart. This data is required to provide context to various Klevu features, such as Klevu Recommendations.]]></comment>
+                </field>
+                <field id="ordersync" translate="label comment" sortOrder="20" type="select"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sync Successful Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Set "Yes" to send order data to Klevu when an order is successfully placed on the checkout page.]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
                 </field>
             </group>
         </section>
