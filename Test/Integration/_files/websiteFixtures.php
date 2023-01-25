@@ -2,6 +2,7 @@
 /** @noinspection PhpDeprecationInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use Magento\Catalog\Model\Category;
 use Magento\Store\Model\Group;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\Website;
@@ -77,6 +78,7 @@ foreach ($websiteFixtures as $websiteCode => $websiteFixture) {
             $storeGroup->setCode($storeGroupCode);
             $storeGroup->setName($storeGroupFixture['name']);
             $storeGroup->setWebsite($website);
+            $storeGroup->setRootCategoryId(Category::TREE_ROOT_ID);
             $storeGroup->save();
         }
 
