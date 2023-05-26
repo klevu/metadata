@@ -285,8 +285,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
                 '#"item_variant_id"\s*:\s*"' . $product->getId() . '"#',
                 $responseBody
             );
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*15#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*10#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -299,8 +299,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $product->getId() . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $product->getId() . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $product->getId() . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*15#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*10#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
@@ -377,8 +377,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
                 '#"item_variant_id"\s*:\s*"' . $childProduct->getId() . '"#',
                 $responseBody
             );
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*30#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*20#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -391,8 +391,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $parentProduct->getId() . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $childProduct->getId() . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*30#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*20#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
@@ -467,8 +467,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertMatchesRegularExpression('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*150#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*100#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -481,8 +481,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*150#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*100#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
@@ -557,8 +557,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertMatchesRegularExpression('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*112.5#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*75#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -571,8 +571,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*112.5#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*75#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
@@ -654,8 +654,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
                 '#"item_variant_id"\s*:\s*"' . $product->getId() . '"#',
                 $responseBody
             );
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*15#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*10#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -668,8 +668,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $product->getId() . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $product->getId() . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $product->getId() . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*15#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*10#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
@@ -756,8 +756,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
                 '#"item_variant_id"\s*:\s*"' . $childProduct->getId() . '"#',
                 $responseBody
             );
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*30#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*20#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -770,8 +770,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $parentProduct->getId() . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $childProduct->getId() . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*30#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*20#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
@@ -856,8 +856,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertMatchesRegularExpression('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*150#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*100#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -870,8 +870,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*150#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*100#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
 
@@ -964,8 +964,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertMatchesRegularExpression('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*112.5#', $responseBody);
-            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertMatchesRegularExpression('#"unit_price"\s*:\s*75#', $responseBody);
+            $this->assertMatchesRegularExpression('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertMatchesRegularExpression('#"units"\s*:\s*1#', $responseBody);
         } else {
             $this->assertRegExp('#klevu_page_meta\s*=#', $responseBody);
@@ -978,8 +978,8 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertRegExp('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
-            $this->assertRegExp('#"unit_price"\s*:\s*112.5#', $responseBody);
-            $this->assertRegExp('#"currency"\s*:\s*"GBP"#', $responseBody);
+            $this->assertRegExp('#"unit_price"\s*:\s*75#', $responseBody);
+            $this->assertRegExp('#"currency"\s*:\s*"USD"#', $responseBody);
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
