@@ -80,7 +80,11 @@ class Category extends Template implements MetadataInterface
             $category = $this->getCategory();
 
             if ($category) {
-                $productCollection = $this->getProductCollection();
+                $productCollection = null;
+                if ($category->getDisplayMode() != \Magento\Catalog\Model\Category::DM_PAGE) {
+                    $productCollection = $this->getProductCollection();
+                }
+
                 if (!$productCollection) {
                     // Ensure no records are returned if a product collection isn't already available
                     $productCollection = $this->productCollectionFactory->create();
