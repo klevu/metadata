@@ -230,6 +230,136 @@ class CategoryMetadataProviderTest extends TestCase
     }
 
     /**
+     * @magentoAppArea frontend
+     * @magentoDbIsolation disabled
+     * @magentoCache all disabled
+     * @magentoDataFixture loadCategoryFixtures
+     * @magentoDataFixture loadProductFixtures
+     * @magentoDataFixture loadCategoryProductAssociationFixtures
+     */
+    public function testGetMetadataForCategoryWithDisplayModePage()
+    {
+        $this->setupPhp5();
+
+        /** @var  $collection */
+        $collection = $this->objectManager->create(CategoryCollection::class);
+        $collection->addAttributeToFilter(
+            'url_key',
+            'klevu-test-category-with-display-mode-page-1'
+        );
+        $collection->addAttributeToSelect('*');
+        $collection->load();
+
+        /** @var Category $category */
+        $category = $collection->getFirstItem();
+
+        /** @var CategoryMetadataProviderInterface $categoryMetadataProvider */
+        $categoryMetadataProvider = $this->objectManager->get(CategoryMetadataProviderInterface::class);
+        $actualResult = $categoryMetadataProvider->getMetadataForCategory(
+            $category
+        );
+        $this->assertSame('magento2', $actualResult['platform']);
+        $this->assertSame('category', $actualResult['pageType']);
+        $this->assertSame(
+            '[Klevu] Parent Category with Display Mode Page Only',
+            $actualResult['categoryName']
+        );
+        $this->assertSame(
+            $this->prepareUrl('klevu-test-category-with-display-mode-page-1'),
+            $actualResult['categoryUrl']
+        );
+
+        $this->assertEmpty($actualResult['categoryProducts']);
+    }
+
+    /**
+     * @magentoAppArea frontend
+     * @magentoDbIsolation disabled
+     * @magentoCache all disabled
+     * @magentoDataFixture loadCategoryFixtures
+     * @magentoDataFixture loadProductFixtures
+     * @magentoDataFixture loadCategoryProductAssociationFixtures
+     */
+    public function testGetMetadataForCategoryWithDisplayModeMixed()
+    {
+        $this->setupPhp5();
+
+        /** @var  $collection */
+        $collection = $this->objectManager->create(CategoryCollection::class);
+        $collection->addAttributeToFilter(
+            'url_key',
+            'klevu-test-category-with-display-mode-mixed-1'
+        );
+        $collection->addAttributeToSelect('*');
+        $collection->load();
+
+        /** @var Category $category */
+        $category = $collection->getFirstItem();
+
+        /** @var ProductCollection $productCollectionOverride */
+        $productCollectionOverride = $this->objectManager->create(ProductCollection::class);
+        $productCollectionOverride->setFlag('has_stock_status_filter', true);
+        $productCollectionOverride->addAttributeToFilter('sku', ['in' => [
+            'klevu_simple_1',
+            'klevu_simple_2',
+            'klevu_simple_3',
+            'klevu_simple_4',
+            'klevu_simple_5',
+        ]]);
+        $productCollectionOverride->setPage(2, 3);
+
+        /** @var CategoryMetadataProviderInterface $categoryMetadataProvider */
+        $categoryMetadataProvider = $this->objectManager->get(CategoryMetadataProviderInterface::class);
+        $actualResult = $categoryMetadataProvider->getMetadataForCategory(
+            $category,
+            $productCollectionOverride
+        );
+
+        $expectedSkus = [
+            'klevu_simple_4',
+            'klevu_simple_5',
+        ];
+
+        $this->assertSameSize($expectedSkus, $actualResult['categoryProducts']);
+        foreach ($expectedSkus as $sku) {
+            $product = $this->productRepository->get($sku);
+            switch ($product->getTypeId()) {
+                case 'simple':
+                    $expectedCategoryProductItem = [
+                        'itemId' => (string)$product->getId(),
+                        'itemGroupId' => '',
+                    ];
+                    break;
+
+                case 'configurable':
+                    $expectedCategoryProductItem = [
+                        'itemId' => '',
+                        'itemGroupId' => (string)$product->getId(),
+                    ];
+                    break;
+            }
+
+            $this->assertContains($expectedCategoryProductItem, $actualResult['categoryProducts']);
+        }
+
+        /** @var CategoryMetadataProviderInterface $categoryMetadataProvider */
+        $categoryMetadataProvider = $this->objectManager->get(CategoryMetadataProviderInterface::class);
+        $actualResult = $categoryMetadataProvider->getMetadataForCategory(
+            $category
+        );
+        $this->assertSame('magento2', $actualResult['platform']);
+        $this->assertSame('category', $actualResult['pageType']);
+        $this->assertSame(
+            '[Klevu] Parent Category with Display Mode Mixed Only',
+            $actualResult['categoryName']
+        );
+        $this->assertSame(
+            $this->prepareUrl('klevu-test-category-with-display-mode-mixed-1'),
+            $actualResult['categoryUrl']
+        );
+    }
+
+    /**
      * @return void
      * @todo Move to setUp when PHP 5.x is no longer supported
      */

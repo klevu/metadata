@@ -110,6 +110,10 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
         CategoryInterface $category,
         ProductCollection $productCollection = null
     ) {
+        //Skip product collection if Display Mode is Page
+        if ($category->getDisplayMode() === Category::DM_PAGE) {
+            return [];
+        }
         if (null === $productCollection && method_exists($category, 'getProductCollection')) {
             $productCollection = $category->getProductCollection();
         }

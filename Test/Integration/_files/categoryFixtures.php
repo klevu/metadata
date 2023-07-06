@@ -35,7 +35,33 @@ $fixtures = [
         'is_active' => true,
         'position' => 1,
         'url_key' => 'klevu-test-category-1-1',
-    ]
+    ],
+    '_5' => [
+        'name' => '[Klevu] Parent Category with Display Mode Page Only',
+        'description' => '[Klevu Test Fixtures] Parent Category with Display Mode Page Only',
+        'parent_id' => 2,
+        'path' => '1/2/_5',
+        'level' => 2,
+        'available_sort_by' => 'name',
+        'default_sort_by' => 'name',
+        'is_active' => true,
+        'position' => 1,
+        'display_mode' => Category::DM_PAGE,
+        'url_key' => 'klevu-test-category-with-display-mode-page-1',
+    ],
+    '_6' => [
+        'name' => '[Klevu] Parent Category with Display Mode Mixed Only',
+        'description' => '[Klevu Test Fixtures] Parent Category with Display Mode Mixed Only',
+        'parent_id' => 2,
+        'path' => '1/2/_6',
+        'level' => 2,
+        'available_sort_by' => 'name',
+        'default_sort_by' => 'name',
+        'is_active' => true,
+        'position' => 1,
+        'display_mode' => Category::DM_MIXED,
+        'url_key' => 'klevu-test-category-with-display-mode-mixed-1',
+    ],
 ];
 
 /** @var Registry $registry */
