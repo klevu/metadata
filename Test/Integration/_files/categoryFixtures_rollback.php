@@ -8,6 +8,8 @@ use Magento\TestFramework\Helper\Bootstrap;
 $urlKeysToDelete = [
     'klevu-test-category-1',
     'klevu-test-category-1-1',
+    'klevu-test-category-with-display-mode-page-1',
+    'klevu-test-category-with-display-mode-mixed-1',
 ];
 
 $objectManager = Bootstrap::getObjectManager();

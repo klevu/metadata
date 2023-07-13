@@ -16,6 +16,8 @@ $categoryCollection = $objectManager->get(CategoryCollectionFactory::class)->cre
 $categoryCollection->addAttributeToFilter('url_key', ['in' => [
     'klevu-test-category-1',
     'klevu-test-category-1-1',
+    'klevu-test-category-with-display-mode-page-1',
+    'klevu-test-category-with-display-mode-mixed-1',
 ]]);
 $categoryCollection->load();
 
