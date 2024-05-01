@@ -1,10 +1,23 @@
 <?php
-    /** @var Klevu\Metadata\Block\MetadataInterface $block */
-    $klevuPageMeta = $block->getKlevuPageMeta();
+/**
+ * @var Klevu\Metadata\Block\MetadataInterface $block
+ * @var Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+$klevuPageMeta = $block->getKlevuPageMeta();
 ?>
 <?php if ($klevuPageMeta): ?>
     <!--suppress ES6ConvertVarToLetConst -->
-    <script type="text/javascript" id="klevu_page_meta">
-        var klevu_page_meta = <?php /** @noEscape */ echo $klevuPageMeta; ?>;
-    </script>
+    <?php
+    $scriptString = <<<script
+
+        var klevu_page_meta = {$klevuPageMeta};
+
+script;
+    ?>
+    <?= $secureRenderer->renderTag(
+        'script',
+        ['type' => 'text/javascript', 'id' => 'klevu_page_meta'],
+        $scriptString,
+        false
+    ) ?>
 <?php endif; ?>
