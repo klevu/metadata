@@ -93,9 +93,12 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertContains('Success Page', $responseBody);
         }
         if (method_exists($this, 'assertStringNotContainsString')) {
-            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringNotContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
-            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertNotContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
     }
 
@@ -147,9 +150,12 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertContains('Success Page', $responseBody);
         }
         if (method_exists($this, 'assertStringNotContainsString')) {
-            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringNotContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
-            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertNotContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
     }
 
@@ -214,9 +220,12 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertContains('Success Page', $responseBody);
         }
         if (method_exists($this, 'assertStringNotContainsString')) {
-            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringNotContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
-            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertNotContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
     }
 
@@ -265,10 +274,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         if (method_exists($this, 'assertMatchesRegularExpression')) {
@@ -352,10 +364,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         $expectedItemId = $parentProduct->getId() . '-' . $childProduct->getId();
@@ -448,10 +463,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         $expectedItemId = $parentProduct->getId();
@@ -538,10 +556,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         $expectedItemId = $parentProduct->getId();
@@ -635,9 +656,12 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertContains('Success Page', $responseBody);
         }
         if (method_exists($this, 'assertStringContainsString')) {
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         if (method_exists($this, 'assertMatchesRegularExpression')) {
@@ -673,7 +697,6 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
-
 
     /**
      * @magentoAppArea frontend
@@ -731,10 +754,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         $expectedItemId = $parentProduct->getId() . '-' . $childProduct->getId();
@@ -775,7 +801,6 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertRegExp('#"units"\s*:\s*1#', $responseBody);
         }
     }
-
 
     /**
      * @magentoAppArea frontend
@@ -837,10 +862,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         $expectedItemId = $parentProduct->getId();
@@ -852,7 +880,10 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
             $this->assertMatchesRegularExpression('#"orderItems"\s*:\s*\[\s*\{#', $responseBody);
             $this->assertMatchesRegularExpression('#"order_id"\s*:\s*"' . $orderId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"order_line_id"\s*:\s*"[0-9]*"#', $responseBody);
-            $this->assertMatchesRegularExpression('#"item_name"\s*:\s*"\[Klevu\] Simple Child Product \d"#', $responseBody);
+            $this->assertMatchesRegularExpression(
+                '#"item_name"\s*:\s*"\[Klevu\] Simple Child Product \d"#',
+                $responseBody
+            );
             $this->assertMatchesRegularExpression('#"item_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_group_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
             $this->assertMatchesRegularExpression('#"item_variant_id"\s*:\s*"' . $expectedItemId . '"#', $responseBody);
@@ -945,10 +976,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
 
         if (method_exists($this, 'assertStringContainsString')) {
             $this->assertStringContainsString('Success Page', $responseBody);
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
             $this->assertContains('Success Page', $responseBody);
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
 
         $expectedItemId = $parentProduct->getId();
@@ -1055,9 +1089,13 @@ class CheckoutSuccessOutputTest extends AbstractControllerTestCase
                     );
 
                     $linkKeys = array_keys($bundleLinks);
-                    $bundleOption[$option->getId()] = isset($bundleLinks[$linkKeys[0]]) ? $bundleLinks[$linkKeys[0]] : null;
+                    $bundleOption[$option->getId()] = isset($bundleLinks[$linkKeys[0]])
+                        ? $bundleLinks[$linkKeys[0]]
+                        : null;
                     $qtyKeys = array_keys($bundleQuantities);
-                    $bundleOptionQty[$option->getId()] = isset($bundleQuantities[$qtyKeys[0]]) ? $bundleQuantities[$qtyKeys[0]] : 1;
+                    $bundleOptionQty[$option->getId()] = isset($bundleQuantities[$qtyKeys[0]])
+                        ? $bundleQuantities[$qtyKeys[0]]
+                        : 1;
                 }
 
                 $params['bundle_option'] = $bundleOption;
