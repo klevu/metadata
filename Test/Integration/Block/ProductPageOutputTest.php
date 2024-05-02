@@ -70,9 +70,12 @@ class ProductPageOutputTest extends AbstractControllerTestCase
         $responseBody = $response->getBody();
         $this->assertSame(200, $response->getHttpResponseCode());
         if (method_exists($this, 'assertStringContainsString')) {
-            $this->assertStringContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
-            $this->assertContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
         if (method_exists($this, 'assertMatchesRegularExpression')) {
             $this->assertMatchesRegularExpression('#klevu_page_meta\s*=#', $responseBody);
@@ -117,9 +120,12 @@ class ProductPageOutputTest extends AbstractControllerTestCase
         $this->assertSame(200, $response->getHttpResponseCode());
 
         if (method_exists($this, 'assertStringNotContainsString')) {
-            $this->assertStringNotContainsString('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertStringNotContainsString(
+                '<script type="text&#x2F;javascript" id="klevu_page_meta">',
+                $responseBody
+            );
         } else {
-            $this->assertNotContains('<script type="text/javascript" id="klevu_page_meta">', $responseBody);
+            $this->assertNotContains('<script type="text&#x2F;javascript" id="klevu_page_meta">', $responseBody);
         }
         if (method_exists($this, 'assertDoesNotMatchRegularExpression')) {
             $this->assertDoesNotMatchRegularExpression('#klevu_page_meta\s*=#', $responseBody);
