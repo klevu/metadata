@@ -49,7 +49,7 @@ class Checkout extends Template implements MetadataInterface
         CheckoutSession $checkoutSession,
         CheckoutMetadataProviderInterface $checkoutMetadataProvider,
         array $data = [],
-        IsEnabledDeterminer $isEnabledDeterminer = null
+        ?IsEnabledDeterminer $isEnabledDeterminer = null
     ) {
         parent::__construct($context, $data);
 

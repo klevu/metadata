@@ -59,7 +59,7 @@ class Category extends Template implements MetadataInterface
         CategoryMetadataProviderInterface $categoryMetadataProvider,
         ProductCollectionFactory $productCollectionFactory,
         array $data = [],
-        IsEnabledDeterminer $isEnabledDeterminer = null
+        ?IsEnabledDeterminer $isEnabledDeterminer = null
     ) {
         parent::__construct($context, $data);
 
