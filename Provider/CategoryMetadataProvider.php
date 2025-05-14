@@ -46,7 +46,7 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
      */
     public function getMetadataForCategory(
         CategoryInterface $category,
-        ProductCollection $productCollectionOverride = null
+        ?ProductCollection $productCollectionOverride = null
     ) {
         return [
             'platform' => Constants::KLEVU_PLATFORM_TYPE,
@@ -108,7 +108,7 @@ class CategoryMetadataProvider implements CategoryMetadataProviderInterface
      */
     private function getCategoryProductsMetadata(
         CategoryInterface $category,
-        ProductCollection $productCollection = null
+        ?ProductCollection $productCollection = null
     ) {
         //Skip product collection if Display Mode is Page
         if ($category->getDisplayMode() === Category::DM_PAGE) {

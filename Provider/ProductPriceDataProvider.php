@@ -19,7 +19,7 @@ class ProductPriceDataProvider implements ProductPriceDataProviderInterface
      * @param ProductPriceDataProviderInterface[]|null $productTypePriceDataProviders
      */
     public function __construct(
-        array $productTypePriceDataProviders = null
+        ?array $productTypePriceDataProviders = null
     ) {
         if (null !== $productTypePriceDataProviders) {
             array_walk(

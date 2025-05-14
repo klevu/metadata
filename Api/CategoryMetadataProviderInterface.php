@@ -19,6 +19,6 @@ interface CategoryMetadataProviderInterface
      */
     public function getMetadataForCategory(
         CategoryInterface $category,
-        ProductCollection $productCollectionOverride = null
+        ?ProductCollection $productCollectionOverride = null
     );
 }

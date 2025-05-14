@@ -48,7 +48,7 @@ class Product extends Template implements MetadataInterface
         ProductRegistryInterface $productRegistry,
         ProductMetadataProviderInterface $productMetadataProvider,
         array $data = [],
-        IsEnabledDeterminer $isEnabledDeterminer = null
+        ?IsEnabledDeterminer $isEnabledDeterminer = null
     ) {
         parent::__construct($context, $data);
 

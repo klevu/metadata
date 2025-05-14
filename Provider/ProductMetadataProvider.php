@@ -26,7 +26,7 @@ class ProductMetadataProvider implements ProductMetadataProviderInterface
      */
     public function __construct(
         LoggerInterface $logger,
-        array $productTypeMetadataProviders = null
+        ?array $productTypeMetadataProviders = null
     ) {
         $this->logger = $logger;
 
