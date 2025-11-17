@@ -14,7 +14,7 @@ $klevuPageMeta = $block->getKlevuPageMeta();
 
 script;
     ?>
-    <?= $secureRenderer->renderTag(
+    <?= /* @noEscape */ $secureRenderer->renderTag(
         'script',
         ['type' => 'text/javascript', 'id' => 'klevu_page_meta'],
         $scriptString,
